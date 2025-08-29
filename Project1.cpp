@@ -2,7 +2,7 @@
 #include <string>
 
 
-void Letter_count (std::string paragraph, std::string paragraph2) {
+/*void Letter_count (std::string paragraph, std::string paragraph2) {
     int a=0, b=0, c=0, d=0, e=0, f=0, g=0, h=0, i=0, j=0, k=0, l=0, m=0, n=0, o=0, p=0, q=0, r=0, s=0, t=0, u=0, v=0, w=0, x=0, y=0, z=0;
 
     for (int mk = 0; mk < paragraph.length(); ++mk) {
@@ -199,9 +199,45 @@ void Letter_count (std::string paragraph, std::string paragraph2) {
     std::cout << "y: " << y << std::endl;
     std::cout << "z: " << z << std::endl;
 
-}
+}*/
+
+//decided to make a more efficient letter count version
+//this is more to refresh my knowledge of arrays and other concepts
+//haven't coded in c++ in a while.... like 1-2 years... so yeah. 
+
+void Letter_count (std::string paragraph, std::string paragraph2) {
+    int letter_count[26] = {0}; // Make array of limit 26, set all values to 0
+
+    // Count letters in the first paragraph
+    for (char ch : paragraph) { // For each character in the string // The colon separates the loop variable declaration from the range to be iterated over.
+        if (ch >= 'a' && ch <= 'z') { // if the character is a in the range of a-z( Acsii values), I believe c++ handles the char to int conversion automatically...
+                                      // forgot I wrote the whole program of that assumption, and it worked so I guess it does.
+
+            letter_count[ch - 'a']++; // Increment the count for the corresponding letter
+                                      // letter_count[ch - 'a'] this finds the index of the letter in the array, all valuse in the array are initialized to 0
+                                      // [ch - 'a']++ increments the value at that index by 1
+        }
+    }
+
+    // Count letters in the second paragraph
+    // same thing as above
+    for (char ch : paragraph2) {
+        if (ch >= 'a' && ch <= 'z') {
+            letter_count[ch - 'a']++;
+        }
+    }
+
+    // Print the counts for each letter
+    for (int i = 0; i < 26; ++i) {
+        char letter = 'a' + i; // confert 'a' to 'z' using ascii values. +i to get the next letter, updating the letter variable each iteration
+        std::cout << letter << ": " << letter_count[i] << std::endl; // print the letter and its count
+    }
+} //this is infinitely more efficient and cleaner than the previous version I wrote
+ // Wished I thought of this before writing the other one ... oh well, live and learn.
+// pain
 
 
+//again, probably could have made this more efficient with arrays or something but I am lazy and to rusty. 
 void LF_Decrypter(std::string paragraph) {
     for (int i = 0; i < paragraph.length(); ++i) {
         
@@ -223,7 +259,6 @@ void LF_Decrypter(std::string paragraph) {
             std::cout << 's';}
         else if (paragraph[i] =='k'){
             std::cout<< 'n';}
-
         else if(paragraph[i] == 'y'){ //yastery
             std::cout << 'm';}
         else if(paragraph[i] == 't'){ //eas+
@@ -248,8 +283,6 @@ void LF_Decrypter(std::string paragraph) {
             std::cout << 'l';}
         else if(paragraph[i] == 'd'){
             std::cout << 'd';}
-
-
         else if(paragraph[i] == 'r'){ //*ualified
             std::cout << 'q';}    
         else if(paragraph[i] == 'g'){
@@ -262,32 +295,125 @@ void LF_Decrypter(std::string paragraph) {
             std::cout << 'q';}
 
 
-        else if(paragraph[i]== 't'||paragraph[i] == 'b'|| paragraph[i] =='h'||paragraph[i] == 'p'|| paragraph[i] =='e'||paragraph[i] == 'r'|| paragraph[i] =='w'
-            ||paragraph[i] == 's'|| paragraph[i] =='a'|| paragraph[i]=='m'||paragraph[i] == 'q'|| paragraph[i] =='d'|| paragraph[i]=='o'|| paragraph[i]=='j'
-            ||paragraph[i] == 'x'||paragraph[i] == 'f'|| paragraph[i]=='i'|| paragraph[i]=='s'|| paragraph[i]=='n') {
-            std::cout << "*";
+        //else if(paragraph[i]== 't'||paragraph[i] == 'b'|| paragraph[i] =='h'||paragraph[i] == 'p'|| paragraph[i] =='e'||paragraph[i] == 'r'|| paragraph[i] =='w'
+        //    ||paragraph[i] == 's'|| paragraph[i] =='a'|| paragraph[i]=='m'||paragraph[i] == 'q'|| paragraph[i] =='d'|| paragraph[i]=='o'|| paragraph[i]=='j'
+        //    ||paragraph[i] == 'x'||paragraph[i] == 'f'|| paragraph[i]=='i'|| paragraph[i]=='s'|| paragraph[i]=='n') {
+        //    std::cout << "*";        }
 
-        }
-        else{
-            std::cout << paragraph[i];
-        }
+        else{std::cout << paragraph[i];}
 
-
-
-
-
-        if (paragraph[i] == ' '&& paragraph[i+1] == ' ') {
+        if (paragraph[i] == ' '&& paragraph[i+1] == ' ') { // this is to preserve the double spaces in the original text AND endl for a more readable output
             std::cout << std::endl;
-            i++;
-        }
-
+            i++; // Skip the next space to avoid printing it again
+            }
         }
             
-        
 
     }
 
 
+//figured out a better way to do this ... probably saves time and space
+//im writting this after already finishing the code so I know it works
+// Thier has to be a more efficient way to do this, some array stuff, but to rusty to think of it rn
+/*void LF_Decrypter(std::string paragraph) {
+
+
+    for (int mk = 0; mk < paragraph.length(); ++mk) {
+
+
+        switch (paragraph[mk]) {
+            case 'a':
+                std::cout << 'x';
+                break; 
+            case 'b':
+                std::cout << 't';
+                break;
+            case 'c':
+                std::cout << 'w';
+                break;
+            case 'd':
+                std::cout << 'd';
+                break;
+            case 'e':
+                std::cout << 'v';
+                break;
+            case 'f':
+                std::cout << 'q';
+                break;
+            case 'g':
+                std::cout << 'z';
+                break;
+            case 'h':
+                std::cout << 'l';
+                break;
+            case 'i':
+                std::cout << 's';
+                break;
+            case 'j':
+                std::cout << 'o';
+                break;
+            case 'k':
+                std::cout << 'n';
+                break;
+            case 'l':
+                std::cout << 'b';
+                break;
+            case 'm':
+                std::cout << 'a';
+                break;
+            case 'n':
+                std::cout << 'u';
+                break;
+            case 'o':
+                std::cout << 'g';
+                break;
+            case 'p':
+                std::cout << 'h';
+                break;
+            case 'q':
+                std::cout << 'k';
+                break;
+            case 'r':
+                std::cout << 'e';
+                break;
+            case 's':
+                std::cout << 'p';
+                break;
+            case 't':
+                std::cout << 'y';
+                break;
+            case 'u':
+                std::cout << 'r';
+                break;
+            case 'v':
+                std::cout << 'c';
+                break;
+            case 'w':
+                std::cout << 'i';
+                break;
+            case 'x':
+                std::cout << 'f';
+                break;
+            case 'y':   
+                std::cout << 'm';
+                break;
+            case 'z':
+                std::cout << 'j';
+                break;
+            case ' ': // this is to preserve the double spaces in the original text AND endl for a more readable output
+                if (paragraph[mk + 1] == ' ') {
+                    std::cout << std::endl;
+                    mk++; // Skip the next space to avoid printing it again
+                } else {
+                    std::cout << ' ';
+                }
+                break;                           
+            default:
+                break; // habit, don't really need it here, but whatever
+
+        }
+    }    
+}*/
 
 int main() {
 
